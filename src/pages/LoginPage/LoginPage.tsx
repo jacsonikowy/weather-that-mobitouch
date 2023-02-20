@@ -3,10 +3,9 @@ import styles from "./LoginPage.module.scss";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Link from "react-router";
 
 import loginCredentials from "login.json";
-import LoginField, { LoginFieldProps } from "components/Field/LoginField";
+import LoginField from "components/LoginField/LoginField";
 
 interface LoginValues {
   login: string;
