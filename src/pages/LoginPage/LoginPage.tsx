@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import styles from "./LoginPage.module.scss";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import loginCredentials from "login.json";
 import LoginField from "components/LoginField/LoginField";
+
+import { useDispatch } from "react-redux";
+import { setLoginAndPassword } from "features/login/login";
 
 interface LoginValues {
   login: string;
@@ -18,8 +22,11 @@ const validationSchema = yup.object({
 });
 
 const LoginPage: React.FC = () => {
-  const [password, setPassword] = useState("");
-  const [login, setLogin] = useState("");
+  const [credentialsCorrect, setCredentialsCorrect] = useState(true);
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -34,15 +41,23 @@ const LoginPage: React.FC = () => {
   });
 
   const onSubmit = handleSubmit((data) => {
+    dispatch(setLoginAndPassword(data));
+
     if (
-      login !== loginCredentials.login ||
-      password !== loginCredentials.password ||
-      (login !== loginCredentials.login &&
-        password !== loginCredentials.password)
+      data.login === loginCredentials.login &&
+      data.password === loginCredentials.password
     ) {
-      console.log("error");
-    } else {
+      const userData = {
+        login: data.login,
+        password: data.password,
+        loggedIn: true,
+      };
+      localStorage.setItem("user", JSON.stringify(userData));
       console.log("success");
+      navigate("/home");
+    } else {
+      console.log("error");
+      setCredentialsCorrect(false);
     }
   });
 
@@ -54,7 +69,6 @@ const LoginPage: React.FC = () => {
           register={register}
           name="login"
           label="Login"
-          onChange={(e) => setLogin(e.target.value)}
         />
         <p>{errors.login?.message ? errors.login?.message : null}</p>
         <LoginField
@@ -62,9 +76,9 @@ const LoginPage: React.FC = () => {
           register={register}
           name="password"
           label="Password"
-          onChange={(e) => setPassword(e.target.value)}
         />
         <p>{errors.password?.message ? errors.password?.message : null}</p>
+        <p>{!credentialsCorrect ? <div>Wrong Credentials</div> : ""}</p>
         <button className={styles.submitBtn}>Submit</button>
       </form>
     </div>
