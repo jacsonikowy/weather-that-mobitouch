@@ -1,0 +1,32 @@
+.weather {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  img {
+    width: 250px;
+    height: 250px;
+    height: auto;
+  }
+  .weatherDesc {
+    display: flex;
+    align-items: center;
+    span {
+      font-size: 48px;
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+  .weatherMain {
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+    span {
+      font-size: 36px;
+    }
+  }
+  .cityNameSpan {
+    margin: 24px 0;
+    font-size: 36px;
+  }
+}
