@@ -1,8 +1,27 @@
 @import "stylesheets/variables";
 
-.cityInput {
-}
-
-.inputCity {
-  max-width: 300px;
+.cityInputDiv {
+  text-align: center;
+  width: 100%;
+  .paragraph {
+    font-size: 48px;
+  }
+  .wrapperInputAndBtn {
+    .inputCity {
+      font-size: 21px;
+      width: 100%;
+      max-width: 500px;
+      min-height: 40px;
+    }
+    .wrapperBtn {
+      margin: 24px 0;
+      width: 100%;
+      height: 100%;
+      .cityNameBtn {
+        font-size: 18px;
+        width: max(60px, 300px);
+        height: max(30px, 40px);
+      }
+    }
+  }
 }

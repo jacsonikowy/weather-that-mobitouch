@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  UseFormRegister,
-  Path,
-  FieldValues,
-  FieldError,
-} from "react-hook-form";
-import "./LoginField.module.scss";
+import { UseFormRegister, Path, FieldValues } from "react-hook-form";
+import styles from "./LoginField.module.scss";
 
 type Login = {
   login: string;
@@ -24,7 +19,7 @@ export interface LoginFieldProps<T>
 const LoginField = <T extends {}>(props: LoginFieldProps<T>) => {
   const { label, register, ...rest } = props;
   return (
-    <div className="field">
+    <div className={styles.field}>
       <label htmlFor={props.name}>{label}</label>
       <input {...rest} {...register(props.name)} onChange={props.onChange} />
     </div>

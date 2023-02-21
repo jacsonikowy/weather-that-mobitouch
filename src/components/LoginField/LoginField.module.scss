@@ -1,1 +1,6 @@
 @import "stylesheets/variables";
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
