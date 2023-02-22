@@ -3,4 +3,7 @@
 .field {
   display: flex;
   flex-direction: column;
+  input {
+    padding: 0 12px;
+  }
 }

@@ -2,18 +2,11 @@ import React from "react";
 import { UseFormRegister, Path, FieldValues } from "react-hook-form";
 import styles from "./LoginField.module.scss";
 
-type Login = {
-  login: string;
-  password: string;
-};
-
-export type FieldPath<TFieldValues extends FieldValues> = Path<TFieldValues>;
-
-export interface LoginFieldProps<T>
+export interface LoginFieldProps<T extends FieldValues>
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  name: FieldPath<Login>;
+  name: Path<T>;
   label: string;
-  register: UseFormRegister<Login>;
+  register: UseFormRegister<T>;
 }
 
 const LoginField = <T extends {}>(props: LoginFieldProps<T>) => {
