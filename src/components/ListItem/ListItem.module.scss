@@ -1,0 +1,10 @@
+@import "stylesheets/variables";
+
+.listItem {
+  width: 100%;
+  font-size: 18px;
+  display: flex;
+  background: #ffffff;
+  justify-content: start;
+  cursor: pointer;
+}

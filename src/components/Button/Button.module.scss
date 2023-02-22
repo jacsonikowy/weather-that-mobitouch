@@ -1,0 +1,15 @@
+@import "stylesheets/variables";
+
+.button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  &.secondary {
+    width: 20px;
+  }
+  svg {
+    height: 26px;
+    width: 26px;
+    align-self: start;
+  }
+}
