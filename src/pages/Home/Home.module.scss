@@ -2,23 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  background: #96aeff;
+  height: 100svh;
   .weatherInfo {
     display: flex;
     flex-direction: column;
     align-self: center;
-  }
-  button {
-    border: none;
-    background: none;
-    cursor: pointer;
-  }
-  .temperatureBtn {
-    margin: 20px;
-    svg {
-      height: 26px;
-      width: 26px;
-      align-self: start;
-    }
   }
   .favorites {
     position: absolute;
