@@ -4,8 +4,10 @@ import { convertToFahrenheit, fetchWeatherData } from "utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as faEmptyStar } from "@fortawesome/free-regular-svg-icons";
 import Button from "components/Button/Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
+import { setFavoriteCity } from "features/favoriteCities/favoriteCities";
+import { FavoriteState } from "constants/FavoriteState";
 
 interface WeatherProps {
   celsius: boolean;
@@ -23,21 +25,19 @@ interface WeatherDataProps {
 const Weather: React.FC<WeatherProps> = ({ celsius }) => {
   const [weatherData, setWeatherData] = useState<WeatherDataProps>();
   const city = useSelector((state: RootState) => state.cityProps.cityProps);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (city) {
       fetchWeatherData(city.lat, city.lon)
         .then((data) => {
           const response = data;
-          console.log(response);
           return response;
         })
         .then((response) => {
           setWeatherData(response);
         });
     }
-    console.log(city.lat);
-    console.log(city.lon);
   }, [city]);
 
   if (!weatherData) {
@@ -47,7 +47,24 @@ const Weather: React.FC<WeatherProps> = ({ celsius }) => {
   return (
     <div className={styles.weather}>
       <div className={styles.wrapperBtn}>
-        <Button text={<FontAwesomeIcon icon={faEmptyStar} />} />
+        <Button
+          text={
+            <FontAwesomeIcon
+              icon={faEmptyStar}
+              onClick={() => {
+                if (weatherData) {
+                  const favoriteCityData: FavoriteState = {
+                    name: weatherData.name,
+                    weatherImg: weatherData.weather[0].icon,
+                    temp: weatherData.main.temp,
+                    pressure: weatherData.main.pressure,
+                  };
+                  dispatch(setFavoriteCity(favoriteCityData));
+                }
+              }}
+            />
+          }
+        />
       </div>
       <div className={styles.weatherDesc}>
         <img

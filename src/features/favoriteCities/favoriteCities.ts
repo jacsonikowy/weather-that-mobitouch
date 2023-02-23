@@ -1,16 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface FavoriteState {
-  cityName: string;
-  weatherImg: React.ReactNode | null;
-  temperature: number | null;
-  pressure: number | null;
-}
+import { FavoriteState } from "constants/FavoriteState";
 
 const initialState: FavoriteState = {
-  cityName: "",
+  name: "",
   weatherImg: null,
-  temperature: null,
+  temp: null,
   pressure: null,
 };
 
@@ -19,9 +13,9 @@ const FavoriteReducer = createSlice({
   initialState,
   reducers: {
     setFavoriteCity: (state: FavoriteState, { payload }) => {
-      state.cityName = payload.name;
+      state.name = payload.name;
       state.weatherImg = payload.weatherImg;
-      state.temperature = payload.temp;
+      state.temp = payload.temp;
       state.pressure = payload.pressure;
     },
   },
