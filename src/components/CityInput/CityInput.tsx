@@ -6,23 +6,9 @@ import { fetchCityNameData } from "utils";
 
 import { useDispatch } from "react-redux";
 import { setCity } from "features/cities/weather";
+import { StateProps } from "constants/StateProps";
 
-interface CityInputProps {
-  setCityName: any;
-}
-
-type StateProps = {
-  name: string;
-  local_names: {
-    en: string;
-  };
-  lat: number;
-  lon: number;
-  country: string;
-  state: string;
-};
-
-const CityInput: React.FC<CityInputProps> = ({ setCityName }) => {
+const CityInput: React.FC = () => {
   const [cityInputName, setCityInputName] = useState("");
   const [cities, setCities] = useState<StateProps[]>([]);
   const debouncedValue = useDebounce<string>(cityInputName, 300);

@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "store";
 
 interface WeatherProps {
-  cityName: string;
   celsius: boolean;
 }
 
@@ -21,13 +20,9 @@ interface WeatherDataProps {
   name: string;
 }
 
-const Weather: React.FC<WeatherProps> = ({ cityName, celsius }) => {
+const Weather: React.FC<WeatherProps> = ({ celsius }) => {
   const [weatherData, setWeatherData] = useState<WeatherDataProps>();
   const city = useSelector((state: RootState) => state.cityProps.cityProps);
-
-  if (!city) {
-    cityName = "Warsaw";
-  }
 
   useEffect(() => {
     if (city) {

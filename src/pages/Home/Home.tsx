@@ -13,7 +13,6 @@ import Button from "components/Button/Button";
 
 const Home: React.FC = () => {
   const [celsius, setCelsius] = useState(true);
-  const [cityName, setCityName] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,8 +41,8 @@ const Home: React.FC = () => {
         variant="secondary"
       />
       <div className={styles.weatherInfo}>
-        <CityInput setCityName={setCityName} />
-        <Weather cityName={cityName} celsius={celsius} />
+        <CityInput />
+        <Weather celsius={celsius} />
       </div>
       <div className={styles.favorites}>
         <FavoriteCity cityName="Warsaw" />
