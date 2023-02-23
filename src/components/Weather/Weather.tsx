@@ -4,6 +4,8 @@ import { convertToFahrenheit, fetchWeatherData } from "utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as faEmptyStar } from "@fortawesome/free-regular-svg-icons";
 import Button from "components/Button/Button";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 
 interface WeatherProps {
   cityName: string;
@@ -18,24 +20,30 @@ interface WeatherDataProps {
   };
   name: string;
 }
-interface latAndLonProps {
-  lat: number;
-  lon: number;
-}
 
 const Weather: React.FC<WeatherProps> = ({ cityName, celsius }) => {
   const [weatherData, setWeatherData] = useState<WeatherDataProps>();
+  const city = useSelector((state: RootState) => state.cityProps.cityProps);
 
-  if (!cityName) {
+  if (!city) {
     cityName = "Warsaw";
   }
 
   useEffect(() => {
-    //fetchWeatherData(cityName).then((data) => {
-    //  setWeatherData(data);
-    //  console.log(data);
-    //});
-  }, [cityName]);
+    if (city) {
+      fetchWeatherData(city.lat, city.lon)
+        .then((data) => {
+          const response = data;
+          console.log(response);
+          return response;
+        })
+        .then((response) => {
+          setWeatherData(response);
+        });
+    }
+    console.log(city.lat);
+    console.log(city.lon);
+  }, [city]);
 
   if (!weatherData) {
     return <div>Type city in input</div>;

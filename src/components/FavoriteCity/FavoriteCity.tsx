@@ -17,7 +17,7 @@ const FavoriteCity: React.FC<FavoriteCityProps> = ({ cityName }) => {
       <div className={styles.informations}>
         <div>
           <FontAwesomeIcon icon={faCloud} />
-          2C 998hPa
+          2&deg;C 998hPa
         </div>
       </div>
     </div>

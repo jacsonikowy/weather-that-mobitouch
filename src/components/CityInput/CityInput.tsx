@@ -1,23 +1,47 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CityInput.module.scss";
 import { useDebounce } from "hooks/UseDebounce";
-import Button from "components/Button/Button";
 import ListItem from "components/ListItem/ListItem";
 import { fetchCityNameData } from "utils";
+
+import { useDispatch } from "react-redux";
+import { setCity } from "features/cities/weather";
 
 interface CityInputProps {
   setCityName: any;
 }
 
+type StateProps = {
+  name: string;
+  local_names: {
+    en: string;
+  };
+  lat: number;
+  lon: number;
+  country: string;
+  state: string;
+};
+
 const CityInput: React.FC<CityInputProps> = ({ setCityName }) => {
   const [cityInputName, setCityInputName] = useState("");
-  const [weatherData, setWeatherData] = useState([]);
-  const debouncedValue = useDebounce<string>(cityInputName, 500);
+  const [cities, setCities] = useState<StateProps[]>([]);
+  const debouncedValue = useDebounce<string>(cityInputName, 300);
+  const dispatch = useDispatch();
+
+  const handleDispatch = (city: StateProps) => {
+    dispatch(setCity(city));
+    setCityInputName("");
+  };
 
   useEffect(() => {
+    if (debouncedValue === "") {
+      setCities([]);
+    }
+
     fetchCityNameData(debouncedValue).then((data) => {
-      setWeatherData(data.data);
       console.log(data);
+      setCities(data);
+      return data;
     });
   }, [debouncedValue]);
 
@@ -29,17 +53,22 @@ const CityInput: React.FC<CityInputProps> = ({ setCityName }) => {
           type="text"
           className={styles.inputCity}
           onChange={(e) => setCityInputName(e.target.value)}
+          value={cityInputName}
         />
-        {weatherData.map((city: any) => {
-          return <ListItem text={city.name} />;
-        })}
-        <ListItem text={weatherData} />
-        <div className={styles.wrapperBtn}>
-          <Button
-            onClick={() => setCityName(cityInputName)}
-            text="Check Weather"
-          />
-        </div>
+        {cities.length === 0
+          ? ""
+          : cities.map((city: StateProps, index: number) => {
+              return (
+                <ListItem
+                  key={index}
+                  text={city.name}
+                  country={city.country}
+                  onClick={() => {
+                    handleDispatch(city);
+                  }}
+                />
+              );
+            })}
       </div>
     </div>
   );
