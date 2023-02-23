@@ -7,10 +7,16 @@
     font-size: 48px;
   }
   .wrapperInputAndBtn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    input {
+      padding: 0 4px;
+    }
     .inputCity {
+      align-self: center;
       font-size: 21px;
       width: 100%;
-      max-width: 500px;
       min-height: 40px;
     }
     .wrapperBtn {
