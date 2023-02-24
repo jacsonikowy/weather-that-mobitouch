@@ -1,22 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { FavoriteState } from "constants/FavoriteState";
+import { WeatherDataProps } from "constants/WeatherDataProps";
 
-const initialState: FavoriteState = {
-  name: "",
-  weatherImg: null,
-  temp: null,
-  pressure: null,
-};
+const initialState: WeatherDataProps[] = [];
 
 const FavoriteReducer = createSlice({
   name: "favoriteCity",
   initialState,
   reducers: {
-    setFavoriteCity: (state: FavoriteState, { payload }) => {
-      state.name = payload.name;
-      state.weatherImg = payload.weatherImg;
-      state.temp = payload.temp;
-      state.pressure = payload.pressure;
+    setFavoriteCity: (state: WeatherDataProps[], { payload }) => {
+      const payloadObject: WeatherDataProps = {
+        name: payload.name,
+        weather: [
+          {
+            description: payload.weather[0].description,
+            icon: payload.weather[0].icon,
+          },
+        ],
+        main: {
+          temp: payload.main.temp,
+          pressure: payload.main.pressure,
+        },
+      };
+      state.push(payloadObject);
     },
   },
 });
