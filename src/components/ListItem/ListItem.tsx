@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, InputHTMLAttributes } from "react";
+import React, { ButtonHTMLAttributes } from "react";
 import styles from "./ListItem.module.scss";
 
 interface ListItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
