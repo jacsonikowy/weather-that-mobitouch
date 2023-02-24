@@ -7,36 +7,64 @@ import Button from "components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { setFavoriteCity } from "features/favoriteCities/favoriteCities";
-import { FavoriteState } from "constants/FavoriteState";
+import { WeatherDataProps } from "constants/WeatherDataProps";
 
 interface WeatherProps {
   celsius: boolean;
+  setModalActive: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  setCityInModal: (value: WeatherDataProps) => void;
 }
 
-interface WeatherDataProps {
-  weather: [{ description: string; icon: string }];
-  main: {
-    temp: number;
-    pressure: string;
-  };
-  name: string;
-}
+const handleAddFavorites = (
+  weatherData: WeatherDataProps,
+  dispatch: Function
+) => {
+  if (weatherData) {
+    const favoriteCityData: WeatherDataProps = {
+      name: weatherData.name,
+      weather: [
+        {
+          icon: weatherData.weather[0].icon,
+        },
+      ],
+      main: {
+        temp: weatherData.main.temp,
+        pressure: weatherData.main.pressure,
+      },
+    };
+    dispatch(setFavoriteCity(favoriteCityData));
+    const data = localStorage.getItem("favoriteCities");
+    if (data !== null) {
+      const array = JSON.parse(data);
+      const favoriteCitiesArray = array;
+      if (favoriteCitiesArray !== null) {
+        favoriteCitiesArray.push(favoriteCityData);
+      }
+      localStorage.setItem(
+        "favoriteCities",
+        JSON.stringify(favoriteCitiesArray)
+      );
+    }
+  }
+};
 
-const Weather: React.FC<WeatherProps> = ({ celsius }) => {
+const Weather: React.FC<WeatherProps> = ({
+  celsius,
+  setModalActive,
+  setCityInModal,
+}) => {
   const [weatherData, setWeatherData] = useState<WeatherDataProps>();
   const city = useSelector((state: RootState) => state.cityProps.cityProps);
+  //const favoriteCities = useSelector((state: RootState) => state.favorites);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (city) {
-      fetchWeatherData(city.lat, city.lon)
-        .then((data) => {
-          const response = data;
-          return response;
-        })
-        .then((response) => {
-          setWeatherData(response);
-        });
+      const fetchData = async () => {
+        const response = await fetchWeatherData(city.lat, city.lon);
+        setWeatherData(response);
+      };
+      fetchData();
     }
   }, [city]);
 
@@ -51,17 +79,7 @@ const Weather: React.FC<WeatherProps> = ({ celsius }) => {
           text={
             <FontAwesomeIcon
               icon={faEmptyStar}
-              onClick={() => {
-                if (weatherData) {
-                  const favoriteCityData: FavoriteState = {
-                    name: weatherData.name,
-                    weatherImg: weatherData.weather[0].icon,
-                    temp: weatherData.main.temp,
-                    pressure: weatherData.main.pressure,
-                  };
-                  dispatch(setFavoriteCity(favoriteCityData));
-                }
-              }}
+              onClick={() => handleAddFavorites(weatherData, dispatch)}
             />
           }
         />
@@ -82,6 +100,13 @@ const Weather: React.FC<WeatherProps> = ({ celsius }) => {
         <span>{weatherData.main.pressure} hPa</span>
       </div>
       <span className={styles.cityNameSpan}>{weatherData.name}</span>
+      <Button
+        text="Show More"
+        onClick={() => {
+          setModalActive(true);
+          setCityInModal(weatherData);
+        }}
+      />
     </div>
   );
 };
