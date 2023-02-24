@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./LoginPage.module.scss";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -14,6 +14,10 @@ import { setLoginAndPassword } from "features/login/login";
 interface LoginValues {
   login: string;
   password: string;
+}
+
+interface localStorageLoginProps extends LoginValues {
+  loggedIn: boolean;
 }
 
 const validationSchema = yup.object({
@@ -41,12 +45,11 @@ const LoginPage: React.FC = () => {
   });
 
   const onSubmit = handleSubmit((data) => {
-    dispatch(setLoginAndPassword(data));
-
     if (
       data.login === loginCredentials.login &&
       data.password === loginCredentials.password
     ) {
+      dispatch(setLoginAndPassword(data));
       const userData = {
         login: data.login,
         password: data.password,
@@ -60,6 +63,18 @@ const LoginPage: React.FC = () => {
       setCredentialsCorrect(false);
     }
   });
+
+  useEffect(() => {
+    console.log("test");
+    const localStorageLoginData = localStorage.getItem("user");
+    if (localStorageLoginData) {
+      const data: localStorageLoginProps = JSON.parse(localStorageLoginData);
+      console.log(localStorageLoginData);
+      if (data.loggedIn) {
+        navigate("/home");
+      }
+    }
+  }, [navigate]);
 
   return (
     <div className={styles.loginPage}>
