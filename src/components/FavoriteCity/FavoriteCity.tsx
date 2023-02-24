@@ -1,24 +1,22 @@
 import React from "react";
 import styles from "./FavoriteCity.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faCloud } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { WeatherDataProps } from "constants/WeatherDataProps";
 
-interface FavoriteCityProps {
-  cityName: string;
-}
-
-const FavoriteCity: React.FC<FavoriteCityProps> = ({ cityName }) => {
+const FavoriteCity: React.FC<WeatherDataProps> = ({ name, weather, main }) => {
   return (
     <div className={styles.favoriteCity}>
       <div className={styles.title}>
-        <span>{cityName}</span>
+        <span>{name}</span>
         <FontAwesomeIcon icon={faStar} />
       </div>
       <div className={styles.informations}>
-        <div>
-          <FontAwesomeIcon icon={faCloud} />
-          2&deg;C 998hPa
-        </div>
+        <img
+          src={`http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`}
+          alt="weatherIcon"
+        />
+        {main.temp}&deg;C {main.pressure}
       </div>
     </div>
   );
