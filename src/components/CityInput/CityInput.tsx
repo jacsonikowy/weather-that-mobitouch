@@ -24,11 +24,12 @@ const CityInput: React.FC = () => {
       setCities([]);
     }
 
-    fetchCityNameData(debouncedValue).then((data) => {
-      console.log(data);
-      setCities(data);
-      return data;
-    });
+    const fetchData = async () => {
+      const response = await fetchCityNameData(debouncedValue);
+      setCities(response);
+    };
+
+    fetchData();
   }, [debouncedValue]);
 
   return (
