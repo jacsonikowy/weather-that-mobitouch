@@ -4,8 +4,8 @@
   width: 100%;
   display: flex;
   max-width: 300px;
-  justify-content: flex-end;
   flex-direction: column;
+  text-align: center;
   .title {
     width: 140px;
     display: flex;
@@ -13,8 +13,16 @@
     align-items: baseline;
   }
   .informations {
+    max-width: 250px;
+    max-height: 50px;
+    display: flex;
     div {
       font-size: 1rem;
+    }
+    img {
+      align-self: center;
+      height: 80px;
+      width: 80px;
     }
   }
 }
