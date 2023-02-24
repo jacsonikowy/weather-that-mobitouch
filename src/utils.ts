@@ -1,5 +1,6 @@
 import axios from "axios";
 import { StateProps } from "constants/StateProps";
+import { WeatherDataProps } from "constants/WeatherDataProps";
 
 export const convertToFahrenheit = (celsiusTemp: number) => {
   return Math.floor(celsiusTemp * 1.8 + 32);
@@ -7,19 +8,8 @@ export const convertToFahrenheit = (celsiusTemp: number) => {
 
 // ------------------------------------- FETCHING DATA FROM OPENWEATHERMAP ------------------------------------- //
 
-interface WeatherDataProps {
-  weather: [{ description: string; icon: string }];
-  main: {
-    temp: number;
-    pressure: string;
-  };
-  name: string;
-}
-
-export const fetchCityNameData = async (
-  city: string
-): Promise<StateProps[]> => {
-  const response = await axios.get(
+export const fetchCityNameData = async (city: string) => {
+  const response = await axios.get<StateProps[]>(
     `http://api.openweathermap.org/geo/1.0/direct`,
     {
       params: {
@@ -38,8 +28,8 @@ export const fetchCityNameData = async (
 export const fetchWeatherData = async (
   lat: number | null,
   lon: number | null
-): Promise<WeatherDataProps> => {
-  const response = await axios.get(
+) => {
+  const response = await axios.get<WeatherDataProps>(
     `https://api.openweathermap.org/data/2.5/weather`,
     {
       params: {
@@ -50,5 +40,5 @@ export const fetchWeatherData = async (
       },
     }
   );
-  return await response.data;
+  return response.data;
 };
