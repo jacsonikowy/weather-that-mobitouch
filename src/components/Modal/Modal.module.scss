@@ -1,0 +1,24 @@
+@import "stylesheets/variables";
+
+.modal {
+  height: 90vh;
+  width: 90vw;
+  border-radius: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  padding: 20px;
+  background: rgb(196, 196, 196);
+  text-align: center;
+  .wrapperBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px;
+  }
+  &.active {
+    display: block;
+  }
+}
