@@ -1,6 +1,6 @@
 export interface FavoriteState {
-  name: string;
+  name: string | null;
   weatherImg: React.ReactNode | null;
   temp: number | null;
-  pressure: string | null;
+  pressure: number | null;
 }
