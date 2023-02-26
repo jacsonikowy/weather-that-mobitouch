@@ -14,16 +14,18 @@ import { RootState } from "store";
 import Modal from "components/Modal/Modal";
 import { WeatherDataProps } from "constants/WeatherDataProps";
 import { setFavoriteCity } from "features/favoriteCities/favoriteCities";
+import { setIsCelsius } from "features/isCelsius/isCelsius";
 
 const Home: React.FC = () => {
-  const [celsius, setCelsius] = useState(true);
   const [modalActive, setModalActive] = useState(false);
   const [cityInModal, setCityInModal] = useState<WeatherDataProps>();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const favoriteCities = useSelector((state: RootState) => state.favorites);
+  const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius)
+
+  const favoriteCities = useSelector((state: RootState) => state.favorites.favorites);
 
   const handleLogout = () => {
     localStorage.setItem("user", "");
@@ -39,6 +41,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const favoriteCitiesLocalStorage = localStorage.getItem("favoriteCities");
     if (favoriteCitiesLocalStorage) {
+      console.log(favoriteCitiesLocalStorage);
       const citiesArray = JSON.parse(favoriteCitiesLocalStorage);
       citiesArray.forEach((city: WeatherDataProps) => {
         dispatch(setFavoriteCity(city));
@@ -54,27 +57,20 @@ const Home: React.FC = () => {
     <div className={styles.home}>
       <Button onClick={handleLogout} text="Log Out" />
       <Button
-        onClick={() => setCelsius(!celsius)}
+        onClick={() => dispatch(setIsCelsius((!celsius)))}
         text={!celsius ? <Celsius /> : <Fahrenheit />}
         variant="secondary"
       />
       <div className={styles.weatherInfo}>
         <CityInput />
         <Weather
-          celsius={celsius}
           setModalActive={setModalActive}
           setCityInModal={setCityInModal}
         />
       </div>
       <div className={styles.favorites}>
         {favoriteCities.map((favoriteCity: WeatherDataProps) => {
-          return (
-            <FavoriteCity
-              name={favoriteCity.name}
-              weather={favoriteCity.weather}
-              main={favoriteCity.main}
-            />
-          );
+          return <FavoriteCity favoriteCity={favoriteCity} />;
         })}
       </div>
       {modalActive && cityInModal ? (
