@@ -42,3 +42,7 @@ export const fetchWeatherData = async (
   );
   return response.data;
 };
+
+export const showFahrenheitOrCelsius = (data: number, celsius: boolean) => {
+  return celsius ? `${Math.ceil(data)}°C` : `${convertToFahrenheit(data)}°F`
+}
