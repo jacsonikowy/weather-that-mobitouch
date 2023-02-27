@@ -1,14 +1,56 @@
 import LoginPage from "pages/LoginPage/LoginPage";
 import Home from "pages/Home/Home";
-import { createBrowserRouter } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
+import Protected from "Protected";
 
-export const router = createBrowserRouter([
+const checkIfAuthenticated = () => {
+  const localStorageAuthentication = localStorage.getItem("user");
+  if (!!localStorageAuthentication) {
+    const aaa = JSON.parse(localStorageAuthentication);
+    return aaa.loggedIn;
+  }
+};
+
+/*
+
+--- Routing using objects, don't work, thing to try and do ---
+
+export const router1 = createBrowserRouter([
   {
     path: "/",
     element: <LoginPage />,
   },
   {
     path: "/home",
-    element: <Home />,
+    children: [
+      {
+        element: (
+          <Protected isLoggedIn={() => checkIfAuthenticated()}>
+            <Home />
+          </Protected>
+        ),
+      },
+    ],
   },
 ]);
+*/
+
+export const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/">
+      <Route path="/" element={<LoginPage />} />
+      <Route
+        path="home"
+        element={
+          <Protected isLoggedIn={() => checkIfAuthenticated()}>
+            <Home />
+          </Protected>
+        }
+      />
+    </Route>
+  )
+);
