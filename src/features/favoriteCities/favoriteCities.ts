@@ -2,18 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 import { WeatherDataProps } from "constants/WeatherDataProps";
 
 interface FavoriteState {
-  favorites: WeatherDataProps[]
+  favorites: WeatherDataProps[];
 }
 
 const initialState: FavoriteState = {
-  favorites: []
-}
+  favorites: [],
+};
 
 const FavoriteReducer = createSlice({
   name: "favoriteCity",
   initialState,
   reducers: {
-    setFavoriteCity: (state, { payload }) => {
+    setFavoriteCity: (state: FavoriteState, { payload }) => {
       const payloadObject: WeatherDataProps = {
         name: payload.name,
         weather: [
@@ -36,8 +36,8 @@ const FavoriteReducer = createSlice({
       };
       state.favorites.push(payloadObject);
     },
-    setFavoriteCityArray: (state, { payload }) => {
-      state.favorites = payload
+    setFavoriteCityArray: (state: FavoriteState, { payload }) => {
+      state.favorites = payload;
     },
   },
 });

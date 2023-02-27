@@ -1,16 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { StateProps } from "constants/StateProps";
 
 interface CityState {
-  cityProps: {
-    name: string;
-    local_names: {
-      en: string;
-    };
-    lat: number | null;
-    lon: number | null;
-    country: string;
-    state: string;
-  };
+  cityProps: StateProps;
 }
 
 const initialState: CityState = {
@@ -19,8 +11,8 @@ const initialState: CityState = {
     local_names: {
       en: "",
     },
-    lat: null,
-    lon: null,
+    lat: 52.237049,
+    lon: 21.017532,
     country: "",
     state: "",
   },
