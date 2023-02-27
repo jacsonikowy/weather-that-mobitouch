@@ -1,5 +1,3 @@
-import LoginPage from "pages/LoginPage/LoginPage";
-import React from "react";
 import "stylesheets/_global.module.scss";
 import "stylesheets/_typography.module.scss";
 import { router } from "./routes";
