@@ -1,37 +1,34 @@
-import { WeatherDataProps } from "constants/WeatherDataProps";
 import React from "react";
 import styles from "./Modal.module.scss";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "components/Button/Button";
 import { showFahrenheitOrCelsius } from "utils";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
+import ForecastChart from "./ForecastChart/ForecastChart";
+import { setModalActive } from "features/cityInModal/cityInModal";
 
-interface ModalProps {
-  active: boolean;
-  cityInModal: WeatherDataProps;
-  setModalActive: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-}
+const Modal: React.FC = () => {
+  const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius);
+  const cityInModal = useSelector(
+    (state: RootState) => state.cityInModal.cityInModal
+  );
+  const modalActive = useSelector(
+    (state: RootState) => state.cityInModal.activeModal
+  );
 
-
-const Modal: React.FC<ModalProps> = ({
-  active,
-  cityInModal,
-  setModalActive,
-}) => {
-
-  const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius)
+  const dispatch = useDispatch();
 
   return (
-    <div className={`${styles.modal} ${active ? styles.active : ""}`}>
+    <div className={`${styles.modal} ${modalActive ? styles.active : ""}`}>
       <div className={styles.wrapperBtn}>
         <Button
           text={
             <FontAwesomeIcon
               icon={faX}
               onClick={() => {
-                setModalActive(false);
+                dispatch(setModalActive(false));
               }}
             />
           }
@@ -60,11 +57,12 @@ const Modal: React.FC<ModalProps> = ({
         <p>{showFahrenheitOrCelsius(cityInModal.main.temp_min, celsius)}</p>
 
         <h6>Humidity:</h6>
-        <p>{cityInModal.main.humidity}</p>
+        <p>{cityInModal.main.humidity}%</p>
 
         <h6>Wind:</h6>
-        <p>{cityInModal.wind.speed}</p>
+        <p>{cityInModal.wind.speed} m/s</p>
 
+        <ForecastChart cityInModal={cityInModal} />
       </div>
     </div>
   );
