@@ -11,5 +11,9 @@ export interface WeatherDataProps {
   wind: {
     speed: number;
   };
+  coord?: {
+    lon: number;
+    lat: number;
+  };
   name: string;
 }
