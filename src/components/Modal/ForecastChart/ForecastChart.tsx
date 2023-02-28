@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { HTMLAttributes, useEffect, useState } from "react";
 import "chart.js/auto";
 import type { ChartData } from "chart.js";
 import { Line } from "react-chartjs-2";
@@ -10,8 +10,9 @@ import {
 } from "utils";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import styles from "../Modal.module.scss";
 
-interface ForecastChartProps {
+interface ForecastChartProps extends HTMLAttributes<HTMLDivElement> {
   cityInModal: WeatherDataProps;
 }
 
@@ -64,7 +65,10 @@ const options = {
   },
 };
 
-const ForecastChart: React.FC<ForecastChartProps> = ({ cityInModal }) => {
+const ForecastChart: React.FC<ForecastChartProps> = ({
+  cityInModal,
+  ...props
+}) => {
   const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius);
   const [chartData, setChartData] = useState<ChartData<"line">>({
     labels: [],
@@ -88,7 +92,11 @@ const ForecastChart: React.FC<ForecastChartProps> = ({ cityInModal }) => {
     <div>Loading</div>;
   }
 
-  return <Line data={chartData} options={options}></Line>;
+  return (
+    <div className={styles.forecastChart}>
+      <Line data={chartData} options={options}></Line>
+    </div>
+  );
 };
 
 export default ForecastChart;

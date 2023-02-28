@@ -55,22 +55,24 @@ const Home: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      <Button onClick={handleLogout} text="Log Out" />
-      <Button
-        onClick={() => dispatch(setIsCelsius(!celsius))}
-        text={!celsius ? <Celsius /> : <Fahrenheit />}
-        variant="secondary"
-      />
+      <div className={styles.btnsWrapper}>
+        <Button onClick={handleLogout} text="Log Out" />
+        <Button
+          onClick={() => dispatch(setIsCelsius(!celsius))}
+          text={!celsius ? <Celsius /> : <Fahrenheit />}
+          variant="secondary"
+        />
+      </div>
       <div className={styles.weatherInfo}>
         <CityInput />
         <Weather />
       </div>
       <div className={styles.favorites}>
-        {favoriteCities.map((favoriteCity: WeatherDataProps) => {
+        {favoriteCities.map((favoriteCity) => {
           return <FavoriteCity favoriteCity={favoriteCity} />;
         })}
       </div>
-      {modalActive && cityInModal ? <Modal /> : ""}
+      {modalActive && cityInModal && <Modal />}
     </div>
   );
 };

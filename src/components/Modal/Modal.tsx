@@ -61,8 +61,10 @@ const Modal: React.FC = () => {
 
         <h6>Wind:</h6>
         <p>{cityInModal.wind.speed} m/s</p>
-
-        <ForecastChart cityInModal={cityInModal} />
+        <ForecastChart
+          className={styles.forecastChart}
+          cityInModal={cityInModal}
+        />
       </div>
     </div>
   );

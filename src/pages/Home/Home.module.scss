@@ -4,10 +4,21 @@
   align-items: flex-start;
   background: #96aeff;
   height: 100svh;
+  .btnsWrapper {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    align-items: start;
+    * {
+      margin: 5px;
+    }
+  }
   .weatherInfo {
     display: flex;
     flex-direction: column;
     align-self: center;
+    margin: 100px 0;
   }
   .favorites {
     position: absolute;
