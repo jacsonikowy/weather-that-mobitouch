@@ -14,7 +14,7 @@ export const forecastApi = weatherApi.injectEndpoints({
   }),
 });
 
-export const useGetWeatherForecast =
-  forecastApi.endpoints.getWeatherForecast.useQuery;
+/* export const useGetWeatherForecast =
+  forecastApi.endpoints.getWeatherForecast.useQuery; */
 
-// export const { useGetWeatherForecast } = forecastApi;
+export const { useGetWeatherForecast } = forecastApi;
