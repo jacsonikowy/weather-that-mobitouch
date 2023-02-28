@@ -15,10 +15,13 @@ import Modal from "components/Modal/Modal";
 import { WeatherDataProps } from "constants/WeatherDataProps";
 import { setFavoriteCity } from "features/favoriteCities/favoriteCities";
 import { setIsCelsius } from "features/isCelsius/isCelsius";
+import { useGetWeatherForecast } from "services/openweather";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { data, error, isLoading } = useGetWeatherForecast({ lat: 0, lon: 0 });
+  console.log(data);
 
   const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius);
   const favoriteCities = useSelector(
