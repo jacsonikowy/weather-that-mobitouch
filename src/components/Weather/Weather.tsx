@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Weather.module.scss";
 import {
   checkIfFavorite,
   convertToFahrenheit,
-  fetchWeatherData,
   handleAddFavorites,
 } from "utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,14 +11,13 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Button from "components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
-import { WeatherDataProps } from "constants/WeatherDataProps";
 import {
   setCityInModal,
   setModalActive,
 } from "features/cityInModal/cityInModal";
+import { useGetWeatherForecastQuery } from "services/getWeatherForecast";
 
 const Weather: React.FC = () => {
-  const [weatherData, setWeatherData] = useState<WeatherDataProps>();
   const city = useSelector((state: RootState) => state.cityProps.cityProps);
   const favoriteCities = useSelector(
     (state: RootState) => state.favorites.favorites
@@ -27,15 +25,16 @@ const Weather: React.FC = () => {
   const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (city) {
-      const fetchData = async () => {
-        const response = await fetchWeatherData(city.lat, city.lon);
-        setWeatherData(response);
-      };
-      fetchData();
-    }
-  }, [city]);
+  const { data, error, isLoading } = useGetWeatherForecastQuery({
+    lat: city.lat,
+    lon: city.lon,
+  });
+
+  const weatherData = data;
+
+  if (isLoading) {
+    return <>Loading...</>;
+  }
 
   if (!weatherData) {
     return <div>Type city in input</div>;

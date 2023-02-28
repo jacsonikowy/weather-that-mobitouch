@@ -10,18 +10,24 @@ import Weather from "components/Weather/Weather";
 import FavoriteCity from "components/FavoriteCity/FavoriteCity";
 import { setLoginAndPassword } from "features/login/login";
 import Button from "components/Button/Button";
-import { RootState } from "store";
+
 import Modal from "components/Modal/Modal";
 import { WeatherDataProps } from "constants/WeatherDataProps";
 import { setFavoriteCity } from "features/favoriteCities/favoriteCities";
 import { setIsCelsius } from "features/isCelsius/isCelsius";
-import { useGetWeatherForecast } from "services/getWeatherForecast";
+import { useGetWeatherForecastQuery } from "services/getWeatherForecast";
+import { RootState } from "store";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { data, error, isLoading } = useGetWeatherForecast({ lat: 0, lon: 0 });
+  const { data, error, isLoading } = useGetWeatherForecastQuery({
+    lat: 0,
+    lon: 0,
+  });
+
+  console.log(data);
 
   const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius);
   const favoriteCities = useSelector(

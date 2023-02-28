@@ -3,7 +3,7 @@ import styles from "./FavoriteCity.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { WeatherDataProps } from "constants/WeatherDataProps";
-import { showFahrenheitOrCelsius } from 'utils'
+import { showFahrenheitOrCelsius } from "utils";
 
 import { RootState } from "store";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,9 @@ interface FavoriteCityProps {
 
 const FavoriteCity: React.FC<FavoriteCityProps> = ({ favoriteCity }) => {
   const state = useSelector((state: RootState) => state.favorites.favorites);
-  const stateIsCelsius = useSelector((state: RootState) => state.isCelsius.isCelsius)
+  const stateIsCelsius = useSelector(
+    (state: RootState) => state.isCelsius.isCelsius
+  );
   const dispatch = useDispatch();
 
   const handleRemoveFromFavorites = (favoriteCity: WeatherDataProps) => {
@@ -24,8 +26,8 @@ const FavoriteCity: React.FC<FavoriteCityProps> = ({ favoriteCity }) => {
       const newFavoriteCityState = state.filter(
         (city) => city.name !== favoriteCity.name
       );
-      console.log(newFavoriteCityState)
-      dispatch(setFavoriteCityArray(newFavoriteCityState))
+      console.log(newFavoriteCityState);
+      dispatch(setFavoriteCityArray(newFavoriteCityState));
 
       const favoriteCitiesFromLocalStorage =
         localStorage.getItem("favoriteCities");
@@ -55,10 +57,14 @@ const FavoriteCity: React.FC<FavoriteCityProps> = ({ favoriteCity }) => {
       </div>
       <div className={styles.informations}>
         <img
-          src={`http://openweathermap.org/img/wn/${favoriteCity.weather[0].icon}@4x.png` || ""}
+          src={
+            `http://openweathermap.org/img/wn/${favoriteCity.weather[0].icon}@4x.png` ||
+            ""
+          }
           alt="weatherIcon"
         />
-        {showFahrenheitOrCelsius(favoriteCity.main.temp, stateIsCelsius)} {favoriteCity.main.pressure}
+        {showFahrenheitOrCelsius(favoriteCity.main.temp, stateIsCelsius)}{" "}
+        {favoriteCity.main.pressure}
       </div>
     </div>
   );
