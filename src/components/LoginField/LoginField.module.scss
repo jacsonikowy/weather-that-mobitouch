@@ -3,7 +3,33 @@
 .field {
   display: flex;
   flex-direction: column;
+  position: relative;
+  min-width: 315px;
   input {
-    padding: 0 12px;
+    min-height: 42px;
+    background: none;
+    border-radius: 8px;
+    border: 2.2px solid #ffffff;
+    margin: 16px 0;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 10px;
+  }
+  label {
+    position: absolute;
+    padding: 1px;
+    top: 0;
+    transition: all 0.5s ease;
+    background: #1d1d1d;
+    margin: 0 6px;
+    font-size: 16px;
+    transform: translateY(28px);
+    pointer-events: none;
+    &.active {
+      transform: translateY(8px);
+    }
+  }
+  &:focus-within > label {
+    transform: translateY(8px);
   }
 }
