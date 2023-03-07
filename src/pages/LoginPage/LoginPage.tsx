@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./LoginPage.module.scss";
+import { ReactComponent as Raining } from 'assets/images/raining.svg'
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import * as yup from "yup";
@@ -69,17 +70,22 @@ const LoginPage: React.FC = () => {
           name="login"
           label="Login"
         />
-        <p>{errors.login?.message ? errors.login?.message : null}</p>
+        <p className={styles.error}>{errors.login?.message ? errors.login?.message : null}</p>
         <LoginField
           type="password"
           register={register}
           name="password"
           label="Password"
         />
-        <p>{errors.password?.message ? errors.password?.message : null}</p>
-        <p>{!credentialsCorrect ? <div>Wrong Credentials</div> : ""}</p>
+        <p className={styles.error}>{errors.password?.message ? errors.password?.message : null}</p>
+        <p className={styles.error}>{!credentialsCorrect ? <div>Wrong Credentials</div> : ""}</p>
         <button className={styles.submitBtn}>Submit</button>
       </form>
+      <div className={styles.wrapper}>
+        <h1>Weather.that</h1>
+        <h5>Google your weather!</h5>
+        <Raining />
+      </div>
     </div>
   );
 };
