@@ -15,6 +15,7 @@ import Modal from "components/Modal/Modal";
 import { WeatherDataProps } from "constants/WeatherDataProps";
 import { setFavoriteCity } from "features/favoriteCities/favoriteCities";
 import { setIsCelsius } from "features/isCelsius/isCelsius";
+import Sidebar from "components/Sidebar/Sidebar";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -55,24 +56,28 @@ const Home: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      <div className={styles.btnsWrapper}>
-        <Button onClick={handleLogout} text="Log Out" />
-        <Button
-          onClick={() => dispatch(setIsCelsius(!celsius))}
-          text={!celsius ? <Celsius /> : <Fahrenheit />}
-          variant="secondary"
-        />
-      </div>
-      <div className={styles.weatherInfo}>
-        <CityInput />
-        <Weather />
-      </div>
-      <div className={styles.favorites}>
-        {favoriteCities.map((favoriteCity) => {
-          return <FavoriteCity favoriteCity={favoriteCity} />;
-        })}
-      </div>
-      {modalActive && cityInModal && <Modal />}
+      <Sidebar />
+      <div className={styles.content}>
+        <div className={styles.btnsWrapper}>
+          <Button onClick={handleLogout} text="Log Out" />
+          <Button
+            onClick={() => dispatch(setIsCelsius(!celsius))}
+            text={!celsius ? <Celsius /> : <Fahrenheit />}
+            variant="secondary"
+          />
+        </div>
+        <div className={styles.weatherInfo}>
+          <CityInput />
+          <Weather />
+        </div>
+        <div className={styles.favorites}>
+          {favoriteCities.map((favoriteCity) => {
+            return <FavoriteCity favoriteCity={favoriteCity} />;
+          })}
+        </div>
+        {modalActive && cityInModal && <Modal />}
+
+        </div>
     </div>
   );
 };
