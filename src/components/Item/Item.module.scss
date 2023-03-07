@@ -1,0 +1,28 @@
+@import 'stylesheets/variables.scss';
+
+.item {
+    min-width: 250px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    filter: invert(81%) sepia(0%) saturate(0%) hue-rotate(94deg) brightness(94%) contrast(86%);
+    &:hover {
+        color: black;
+        filter: invert(23%) sepia(0%) saturate(1294%) hue-rotate(195deg) brightness(98%) contrast(91%);
+        transition: filter 0.2s ease-in-out;
+    }
+    .text {
+        font-size: 12px;
+        margin: 0 0 0 18px;
+    }
+    svg {
+        width: 32px;
+        height: 32px;
+    } 
+    &.logout {
+        filter: invert(28%) sepia(100%) saturate(7404%) hue-rotate(17deg) brightness(101%) contrast(133%);
+    }
+}
