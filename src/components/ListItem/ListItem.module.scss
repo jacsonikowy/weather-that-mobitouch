@@ -8,6 +8,12 @@
   justify-content: space-between;
   cursor: pointer;
   border-bottom: 1px solid #868686;
+  position: relative;
+  height: 28px;
+  align-items: center;
+  &:hover {
+    background: #e6e5e5;
+  }
   p {
     font-size: 16px;
     padding: 0 6px;
@@ -17,6 +23,12 @@
     button {
       width: 26px;
       height: 26px;
+      position: absolute;
+      width: 100%;
+      inset: 0 0 0 0;
+      border: none;
+      background: none;
+      cursor: pointer;
     }
   }
 }
