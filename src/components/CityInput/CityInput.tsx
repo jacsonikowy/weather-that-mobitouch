@@ -7,6 +7,7 @@ import { fetchCityNameData } from "utils";
 import { useDispatch } from "react-redux";
 import { setCity } from "features/cities/weather";
 import { StateProps } from "constants/StateProps";
+import { ReactComponent as Glass } from 'assets/icons/glass.svg'
 
 const CityInput: React.FC = () => {
   const [cityInputName, setCityInputName] = useState("");
@@ -34,14 +35,17 @@ const CityInput: React.FC = () => {
 
   return (
     <div className={styles.cityInputDiv}>
-      <span className={styles.paragraph}>Type City</span>
       <div className={styles.wrapperInputAndBtn}>
-        <input
-          type="text"
-          className={styles.inputCity}
-          onChange={(e) => setCityInputName(e.target.value)}
-          value={cityInputName}
-        />
+        <label htmlFor="">
+          <Glass />
+          <input
+            type="text"
+            className={styles.inputCity}
+            onChange={(e) => setCityInputName(e.target.value)}
+            placeholder="Type city here..."
+            value={cityInputName}
+          />
+        </label>
         {cities.length === 0
           ? ""
           : cities.map((city: StateProps, index: number) => {
