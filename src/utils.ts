@@ -138,3 +138,45 @@ export const logout = (navigate: Function) => {
   localStorage.removeItem("user")
   navigate("/")
 }
+
+export const returnCurrentDate = () => {
+  const date = new Date();
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ]
+
+  const daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ]
+
+  const month = months[date.getMonth()]
+  const year = date.getFullYear()
+  const dayOfWeek = daysOfWeek[date.getDay()]
+  const day = date.getDate();
+
+  const dateToReturn = {
+    title: `${month} ${year}`,
+    subtitle: `${dayOfWeek}, ${month.slice(0,3)} ${day} ${year}`
+  }
+  return dateToReturn
+
+
+}
