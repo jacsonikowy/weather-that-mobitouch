@@ -32,17 +32,6 @@ const Home: React.FC = () => {
     (state: RootState) => state.cityInModal.activeModal
   );
 
-  const handleLogout = () => {
-    localStorage.setItem("user", "");
-    navigate("/");
-    dispatch(
-      setLoginAndPassword({
-        login: "",
-        password: "",
-      })
-    );
-  };
-
   useEffect(() => {
     const favoriteCitiesLocalStorage = localStorage.getItem("favoriteCities");
     if (favoriteCitiesLocalStorage) {
@@ -59,7 +48,6 @@ const Home: React.FC = () => {
       <Sidebar />
       <div className={styles.content}>
         <div className={styles.btnsWrapper}>
-          <Button onClick={handleLogout} text="Log Out" />
           <Button
             onClick={() => dispatch(setIsCelsius(!celsius))}
             text={!celsius ? <Celsius /> : <Fahrenheit />}
