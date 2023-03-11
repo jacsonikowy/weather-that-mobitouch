@@ -133,3 +133,8 @@ export const checkIfFavorite = (
 
   return boolean;
 };
+
+export const logout = (navigate: Function) => {
+  localStorage.removeItem("user")
+  navigate("/")
+}
