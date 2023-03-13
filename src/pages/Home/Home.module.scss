@@ -1,9 +1,14 @@
 .home {
   display: flex;
-  background: #96aeff;
+  background: #e4ebff;
   height: 100svh;
   .content {
+    width: 100%;
+    .date {
+      padding: 32px;
+    }
     .btnsWrapper {
+      right: 0;
       position: fixed;
       display: flex;
       flex-direction: column;
@@ -16,8 +21,6 @@
     .weatherInfo {
       display: flex;
       flex-direction: column;
-      align-self: center;
-      margin: 100px 0;
     }
     .favorites {
       position: absolute;

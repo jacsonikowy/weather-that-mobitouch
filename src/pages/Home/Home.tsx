@@ -1,6 +1,5 @@
 import CityInput from "components/CityInput/CityInput";
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Home.module.scss";
 
@@ -8,7 +7,6 @@ import { ReactComponent as Celsius } from "assets/icons/celsius.svg";
 import { ReactComponent as Fahrenheit } from "assets/icons/fahrenheit.svg";
 import Weather from "components/Weather/Weather";
 import FavoriteCity from "components/FavoriteCity/FavoriteCity";
-import { setLoginAndPassword } from "features/login/login";
 import Button from "components/Button/Button";
 import { RootState } from "store";
 import Modal from "components/Modal/Modal";
@@ -16,9 +14,9 @@ import { WeatherDataProps } from "constants/WeatherDataProps";
 import { setFavoriteCity } from "features/favoriteCities/favoriteCities";
 import { setIsCelsius } from "features/isCelsius/isCelsius";
 import Sidebar from "components/Sidebar/Sidebar";
+import { returnCurrentDate } from "utils";
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius);
@@ -53,6 +51,10 @@ const Home: React.FC = () => {
             text={!celsius ? <Celsius /> : <Fahrenheit />}
             variant="secondary"
           />
+        </div>
+        <div className={styles.date}>
+          <h3>{returnCurrentDate().title}</h3>
+          <h5>{returnCurrentDate().subtitle}</h5>
         </div>
         <div className={styles.weatherInfo}>
           <CityInput />
