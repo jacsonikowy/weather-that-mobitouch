@@ -3,6 +3,7 @@ import styles from "./Weather.module.scss";
 import {
   checkIfFavorite,
   convertToFahrenheit,
+  displayIcon,
   fetchWeatherData,
   handleAddFavorites,
 } from "utils";
@@ -17,6 +18,7 @@ import {
   setCityInModal,
   setModalActive,
 } from "features/cityInModal/cityInModal";
+import { icons } from "mocks/IconsData";
 
 const Weather: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherDataProps>();
@@ -41,6 +43,8 @@ const Weather: React.FC = () => {
     return <div>Type city in input</div>;
   }
 
+  const icon = weatherData.weather[0].icon
+
   return (
     <div className={styles.weather}>
       <div className={styles.wrapperBtn}>
@@ -60,13 +64,9 @@ const Weather: React.FC = () => {
         />
       </div>
       <div className={styles.weatherDesc}>
-        <img
-          src={
-            `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@4x.png` ||
-            ""
-          }
-          alt=""
-        />
+        <div>
+          {displayIcon(icon)}
+        </div>
         <span>{weatherData.weather[0].description}</span>
       </div>
       <div className={styles.weatherMain}>
