@@ -1,0 +1,10 @@
+@import 'stylesheets/variables';
+
+.favorites {
+    background: #e4ebff;
+    display: flex;
+    height: 100svh;
+    .content {
+        width: 100%;
+    }
+}
