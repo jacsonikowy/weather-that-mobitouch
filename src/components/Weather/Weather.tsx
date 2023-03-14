@@ -18,7 +18,6 @@ import {
   setCityInModal,
   setModalActive,
 } from "features/cityInModal/cityInModal";
-import { icons } from "mocks/IconsData";
 
 const Weather: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherDataProps>();
@@ -64,10 +63,10 @@ const Weather: React.FC = () => {
         />
       </div>
       <div className={styles.weatherDesc}>
-        <div>
+        <div className={styles.weatherIcon}>
           {displayIcon(icon)}
         </div>
-        <span>{weatherData.weather[0].description}</span>
+        <span className={styles.weatherInfo}>{weatherData.weather[0].description}</span>
       </div>
       <div className={styles.weatherMain}>
         <span>{`${

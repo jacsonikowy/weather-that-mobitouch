@@ -1,25 +1,21 @@
+@import 'stylesheets/_variables.scss';
+
 .weather {
   display: flex;
   align-items: center;
+  align-self: center;
   flex-direction: column;
   justify-content: center;
+  max-width: 1000px;
   .wrapperBtn {
-    position: relative;
-    align-self: first baseline;
-    button {
-      position: absolute;
-      inset: 20 0 0 0;
-      padding: 16px;
-    }
-  }
-  img {
-    width: 250px;
-    height: 250px;
-    height: auto;
+    align-self: flex-end;
   }
   .weatherDesc {
     display: flex;
     align-items: center;
+    .weatherIcon {
+      margin: 0 50px 0 0;
+    }
     span {
       font-size: 48px;
       &::first-letter {
@@ -30,7 +26,8 @@
   .weatherMain {
     width: 80%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    margin: 50px 0 0 0;
     span {
       font-size: 36px;
     }
@@ -38,5 +35,27 @@
   .cityNameSpan {
     margin: 24px 0;
     font-size: 36px;
+  }
+}
+
+@media screen and (max-width: $large) {
+  .weather {
+    text-align: center;
+    .weatherDesc {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .weatherInfo {
+        margin: 24px 0 0 0;
+      };
+      .weatherIcon {
+        svg {
+          width: 300px
+        }
+      }
+    }
+    .weatherMain {
+      width: 80%;
+    }
   }
 }
