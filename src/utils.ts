@@ -3,6 +3,8 @@ import { ForecastState } from "constants/Forecast";
 import { StateProps } from "constants/StateProps";
 import { WeatherDataProps } from "constants/WeatherDataProps";
 import { setFavoriteCity } from "features/favoriteCities/favoriteCities";
+import { icons } from "mocks/IconsData";
+import React from "react";
 
 export const convertToFahrenheit = (celsiusTemp: number) => {
   return Math.floor(celsiusTemp * 1.8 + 32);
@@ -177,6 +179,21 @@ export const returnCurrentDate = () => {
     subtitle: `${dayOfWeek}, ${month.slice(0,3)} ${day} ${year}`
   }
   return dateToReturn
+}
 
-
+export const displayIcon = (icon: React.ReactNode): React.ReactNode => {
+  return icons.map(iconObject => {
+    if(Array.isArray(iconObject.id)){
+      return iconObject.id.map(iconId => {
+        console.log(iconId)
+        if(iconId === icon){
+          return iconObject.icon
+        }
+      })
+    }else {
+      if(icon === iconObject.id){
+        return iconObject.icon
+      }
+    }
+  })
 }
