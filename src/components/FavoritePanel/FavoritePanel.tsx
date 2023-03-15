@@ -6,8 +6,12 @@ import Button from 'components/Button/Button'
 import { useDispatch } from 'react-redux'
 import { setModalActive } from 'features/cityInModal/cityInModal'
 
+interface FavoritePanelProps extends FavoriteState {
+    onClick: () => void
+}
 
-const FavoritePanel: React.FC<FavoriteState> = ({name, weatherImg, temp, pressure}) => {
+
+const FavoritePanel: React.FC<FavoritePanelProps> = ({name, weatherImg, temp, pressure, onClick}) => {
 
     const dispatch = useDispatch();
 
@@ -19,7 +23,7 @@ const FavoritePanel: React.FC<FavoriteState> = ({name, weatherImg, temp, pressur
             <span>{name}</span>
             <span>{temp} C</span>
             <span>{pressure} hPa</span>
-            <Button text="See more" onClick={() => {dispatch(setModalActive(true))}}/>
+            <Button text="See more" onClick={onClick}/>
         </div>
     )
 }
