@@ -33,6 +33,10 @@ const FavoriteReducer = createSlice({
         wind: {
           speed: payload.wind.speed,
         },
+        coord: {
+          lat: payload.coord.lat,
+          lon: payload.coord.lon
+        }
       };
       state.favorites.push(payloadObject);
     },

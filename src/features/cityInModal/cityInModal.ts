@@ -20,6 +20,10 @@ const initialState: StateInterface = {
     wind: {
       speed: 0,
     },
+    coord: {
+      lat: 0,
+      lon: 0
+    },
     name: "",
   },
   activeModal: false,
