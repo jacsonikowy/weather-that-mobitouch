@@ -4,7 +4,17 @@
     background: #e4ebff;
     display: flex;
     height: 100svh;
+    .closeBtnWrapper {
+        position: absolute;
+        padding: 24px;
+    }
     .content {
         width: 100%;
+        span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
     }
 }
