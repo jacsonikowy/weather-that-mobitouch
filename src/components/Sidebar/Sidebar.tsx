@@ -7,38 +7,43 @@ import { logout } from "utils";
 import { useNavigate } from "react-router";
 import Button from "components/Button/Button"
 import { faX } from '@fortawesome/free-solid-svg-icons'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { RootState } from "store";
+import { useSelector } from "react-redux";
+import { setSidebarActive } from "features/sidebar/sidebar";
+import { useDispatch } from "react-redux";
+import { ItemProps } from "constants/ItemProps";
 
 const Sidebar: React.FC = () => {
 
-    const [active, setActive] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-
+    const sidebarActive = useSelector(
+        (state: RootState) => state.sidebar.active
+    )
 
     return (
-        <div className={`${styles.container} ${active ? "" : styles.nobackground}`}>
-        <div className={`${styles.sidebar} ${active ? styles.active : ""}`}>
+        <div className={`${styles.sidebar} ${sidebarActive ? styles.active : ""}`}>
+            <div className={styles.btnWrapper}>
+                <Button text={<FontAwesomeIcon icon={ faX } />} onClick={() => dispatch(setSidebarActive(!sidebarActive))}/>
+            </div>
             <div className={styles.panels}>
                 {sidebarData.map((item) => {
                     return (<Item img={item.img} text={item.text} onClick={() => {
                       if(!!item.location){
                         navigate(item.location)
-                      }  
+                      }
+                      dispatch(setSidebarActive(!sidebarActive))
                     }}/>)
                 })}
             </div>
             <div className={styles.panelsSystem}>
                 <h5>System</h5>
                 {sidebarDataSystem.map(item => {
-                    return <Item img={item.img} text={item.text} isLogout={item.isLogout} onClick={item.isLogout ? () => logout(navigate) : undefined}/>
+                    return <Item img={item.img} text={item.text} isLogout={item.isLogout} onClick={item.isLogout ? () => logout(navigate) : undefined} />
                 })}
             </div>
-        </div>
-        <div className={styles.closeBtnWrapper}>
-            <Button text={<FontAwesomeIcon icon={ active ? faX : faBars} />} onClick={() => setActive(!active)}></Button>
-        </div> 
         </div>
     )
 }
