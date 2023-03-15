@@ -1,5 +1,5 @@
 import CityInput from "components/CityInput/CityInput";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Home.module.scss";
 
@@ -11,10 +11,13 @@ import Button from "components/Button/Button";
 import { RootState } from "store";
 import Modal from "components/Modal/Modal";
 import { WeatherDataProps } from "constants/WeatherDataProps";
-import { setFavoriteCity } from "features/favoriteCities/favoriteCities";
+import { setFavoriteCityArray } from "features/favoriteCities/favoriteCities";
 import { setIsCelsius } from "features/isCelsius/isCelsius";
 import Sidebar from "components/Sidebar/Sidebar";
 import { returnCurrentDate } from "utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { setSidebarActive } from "features/sidebar/sidebar";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -35,15 +38,17 @@ const Home: React.FC = () => {
     if (favoriteCitiesLocalStorage) {
       console.log(favoriteCitiesLocalStorage);
       const citiesArray = JSON.parse(favoriteCitiesLocalStorage);
-      citiesArray.forEach((city: WeatherDataProps) => {
-        dispatch(setFavoriteCity(city));
-      });
+      dispatch(setFavoriteCityArray(citiesArray));
     }
-  }, [dispatch]);
+  }, []);
+
 
   return (
     <div className={styles.home}>
-      <Sidebar />
+      <Sidebar/>
+      <div className={`${styles.closeBtnWrapper}`}>
+          <Button text={<FontAwesomeIcon icon={ faBars }/>} onClick={() => dispatch(setSidebarActive(true))}></Button>
+      </div> 
       <div className={styles.content}>
         <div className={styles.btnsWrapper}>
           <Button

@@ -1,7 +1,11 @@
 .home {
   display: flex;
+  min-height: 100svh;
   background: #e4ebff;
-  height: 100svh;
+  .closeBtnWrapper {
+    position: absolute;
+    padding: 24px;
+  }
   .content {
     width: 100%;
     .date {
