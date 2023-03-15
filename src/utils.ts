@@ -103,7 +103,13 @@ export const handleAddFavorites = (
       wind: {
         speed: weatherData.wind.speed,
       },
+      coord: {
+        lat: weatherData.coord!.lat,
+        lon: weatherData.coord!.lon
+      }
     };
+
+    console.log(favoriteCityData)
     dispatch(setFavoriteCity(favoriteCityData));
     const data = localStorage.getItem("favoriteCities");
     let favoriteCitiesArray;
@@ -185,7 +191,6 @@ export const displayIcon = (icon: React.ReactNode): React.ReactNode => {
   return icons.map(iconObject => {
     if(Array.isArray(iconObject.id)){
       return iconObject.id.map(iconId => {
-        console.log(iconId)
         if(iconId === icon){
           return iconObject.icon
         }
