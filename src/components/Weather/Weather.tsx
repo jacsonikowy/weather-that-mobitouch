@@ -39,7 +39,7 @@ const Weather: React.FC = () => {
   }, [city]);
 
   if (!weatherData) {
-    return <div>Type city in input</div>;
+    return <div>Loading...</div>;
   }
 
   const icon = weatherData.weather[0].icon
