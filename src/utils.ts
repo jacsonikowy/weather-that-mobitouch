@@ -2,7 +2,7 @@ import axios from "axios";
 import { ForecastState } from "constants/Forecast";
 import { StateProps } from "constants/StateProps";
 import { WeatherDataProps } from "constants/WeatherDataProps";
-import { setFavoriteCity } from "features/favoriteCities/favoriteCities";
+import { setFavoriteCity, setFavoriteCityArray } from "features/favoriteCities/favoriteCities";
 import { icons } from "mocks/IconsData";
 import React from "react";
 
@@ -119,6 +119,9 @@ export const handleAddFavorites = (
 
     if (favoriteCitiesArray !== null) {
       favoriteCitiesArray.push(favoriteCityData);
+      console.log(favoriteCitiesArray)
+      favoriteCitiesArray.sort((a:WeatherDataProps,b:WeatherDataProps) => a.name.localeCompare(b.name))
+      console.log(favoriteCitiesArray)
     }
 
     localStorage.setItem("favoriteCities", JSON.stringify(favoriteCitiesArray));
@@ -202,3 +205,24 @@ export const displayIcon = (icon: React.ReactNode): React.ReactNode => {
     }
   })
 }
+
+export const handleRemoveFromFavorites = (dispatch: Function, favoriteCity: WeatherDataProps, state: WeatherDataProps[]) => {
+  if (favoriteCity !== null) {
+    const newFavoriteCityState = state.filter(
+      (city: WeatherDataProps) => city.name !== favoriteCity.name
+    );
+    console.log(newFavoriteCityState)
+    dispatch(setFavoriteCityArray(newFavoriteCityState))
+
+    const favoriteCitiesFromLocalStorage =
+      localStorage.getItem("favoriteCities");
+    if (favoriteCitiesFromLocalStorage !== null) {
+      const parsedCities = JSON.parse(favoriteCitiesFromLocalStorage);
+      const result1 = parsedCities.filter(
+        (city: WeatherDataProps) => city.name !== favoriteCity.name
+      );
+
+      localStorage.setItem("favoriteCities", JSON.stringify(result1));
+    }
+  }
+};
