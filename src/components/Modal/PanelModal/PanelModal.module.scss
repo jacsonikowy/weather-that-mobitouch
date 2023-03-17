@@ -1,9 +1,24 @@
+@import 'stylesheets/variables';
+
 .panelModal {
     display: flex;
+    flex: 0 0 33.333333%;
+    padding: 6px;
+    margin: 6px;
+    background-color: white;
+    box-shadow:
+    8.4px 8.6px 8.9px rgba(0, 0, 0, 0.035),
+    67px 69px 71px rgba(0, 0, 0, 0.07)
+    ;
+    border-radius: 8px;
     svg {
         width: 48px;
         height: 48px;
     }
-    .wrapperTitle {
+}
+
+@media screen and (max-width: $large){
+    .panelModal {
+        margin: 12px
     }
 }

@@ -45,14 +45,16 @@ const Modal: React.FC = () => {
         <div className={styles.weatherIcon}>
           {displayIcon(cityInModal.weather[0].icon)}
         </div>
-
+          <div className={styles.panelModals}>
         <PanelModal text="Temperature" value={`${showFahrenheitOrCelsius(cityInModal.main.temp, celsius)}`} icon={<Thermo />} />
         <PanelModal text="Feels Like" value={`${showFahrenheitOrCelsius(cityInModal.main.feels_like, celsius)}`} icon={<FeelsLike />} />
         <PanelModal text="Pressure" value={`${cityInModal.main.pressure} hPa`} icon={<Pressure />} />
-        <PanelModal text="Max Temperature in 24H" value={`${showFahrenheitOrCelsius(cityInModal.main.temp_max, celsius)}`} icon={<Thermo />} />
-        <PanelModal text="Min Temperature in 24H" value={`${showFahrenheitOrCelsius(cityInModal.main.temp_min, celsius)}`} icon={<Thermo />} />
+        <PanelModal text="Max Temp 24H" value={`${showFahrenheitOrCelsius(cityInModal.main.temp_max, celsius)}`} icon={<Thermo />} />
+        <PanelModal text="Min Temp 24H" value={`${showFahrenheitOrCelsius(cityInModal.main.temp_min, celsius)}`} icon={<Thermo />} />
         <PanelModal text="Humidity" value={`${cityInModal.wind.speed}%`} icon={<Humidity />} />
         <PanelModal text="Wind" value={`${cityInModal.wind.speed} m/s`} icon={<Wind />} />
+
+          </div>
 
         <ForecastChart
           className={styles.forecastChart}

@@ -23,6 +23,10 @@
     display: block;
   }
   .modalContent {
+    .panelModals {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
     h6 {
       font-size: 24px;
       display: flex;
@@ -39,6 +43,16 @@
     }
     .forecastChart {
       padding: 0 0 100px 0;
+    }
+  }
+}
+
+@media screen and (max-width: $large){
+  .modal {
+    .modalContent {
+      .panelModals {
+        display: block;
+      }
     }
   }
 }
