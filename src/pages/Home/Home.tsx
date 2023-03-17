@@ -1,16 +1,14 @@
 import CityInput from "components/CityInput/CityInput";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Home.module.scss";
 
 import { ReactComponent as Celsius } from "assets/icons/celsius.svg";
 import { ReactComponent as Fahrenheit } from "assets/icons/fahrenheit.svg";
 import Weather from "components/Weather/Weather";
-import FavoriteCity from "components/FavoriteCity/FavoriteCity";
 import Button from "components/Button/Button";
 import { RootState } from "store";
 import Modal from "components/Modal/Modal";
-import { WeatherDataProps } from "constants/WeatherDataProps";
 import { setFavoriteCityArray } from "features/favoriteCities/favoriteCities";
 import { setIsCelsius } from "features/isCelsius/isCelsius";
 import Sidebar from "components/Sidebar/Sidebar";
@@ -64,11 +62,6 @@ const Home: React.FC = () => {
         <div className={styles.weatherInfo}>
           <CityInput />
           <Weather />
-        </div>
-        <div className={styles.favorites}>
-          {favoriteCities.map((favoriteCity) => {
-            return <FavoriteCity favoriteCity={favoriteCity} />;
-          })}
         </div>
         {modalActive && cityInModal && <Modal />}
 

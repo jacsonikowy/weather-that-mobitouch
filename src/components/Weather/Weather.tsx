@@ -6,6 +6,7 @@ import {
   displayIcon,
   fetchWeatherData,
   handleAddFavorites,
+  handleRemoveFromFavorites,
 } from "utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as faEmptyStar } from "@fortawesome/free-regular-svg-icons";
@@ -58,7 +59,13 @@ const Weather: React.FC = () => {
             />
           }
           onClick={() =>
-            handleAddFavorites(weatherData, dispatch, favoriteCities)
+            {
+              if(!checkIfFavorite(favoriteCities, weatherData)){
+                handleAddFavorites(weatherData, dispatch, favoriteCities)
+              } else {
+              handleRemoveFromFavorites(dispatch, weatherData, favoriteCities)
+              }
+            }
           }
         />
       </div>
