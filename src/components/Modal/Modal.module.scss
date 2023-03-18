@@ -41,13 +41,10 @@
     p {
       font-size: 21px;
     }
-    .forecastChart {
-      padding: 0 0 100px 0;
-    }
   }
 }
 
-@media screen and (max-width: $large){
+@media screen and (max-width: $large) {
   .modal {
     .modalContent {
       .panelModals {

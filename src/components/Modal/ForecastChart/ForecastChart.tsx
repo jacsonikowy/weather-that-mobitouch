@@ -1,7 +1,5 @@
 import React, { HTMLAttributes, useEffect, useState } from "react";
-import "chart.js/auto";
-import type { ChartData } from "chart.js";
-import { Line } from "react-chartjs-2";
+import styles from "./ForecastChart.module.scss";
 import { WeatherDataProps } from "constants/WeatherDataProps";
 import {
   convertToFahrenheit,
@@ -10,10 +8,11 @@ import {
 } from "utils";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
-import styles from "../Modal.module.scss";
+import { ApexOptions } from "apexcharts";
+import Chart from "react-apexcharts";
 
 interface ForecastChartProps extends HTMLAttributes<HTMLDivElement> {
-  cityInModal: WeatherDataProps;
+  cityInModal: any;
 }
 
 const fetchDataForecast = async (
@@ -25,24 +24,30 @@ const fetchDataForecast = async (
     cityInModal.coord!.lon
   );
 
-  const data: ChartData<"line"> = {
-    labels: response.slice(0, 40).map((object) => {
-      return convertUnixTime(object.dt);
-    }),
-    datasets: [
+  const data: ApexOptions = {
+    chart: {
+      id: "temperature",
+    },
+    stroke: {
+      curve: "smooth",
+    },
+    xaxis: {
+      categories: response.slice(0, 40).map((object) => {
+        return convertUnixTime(object.dt);
+      }),
+    },
+    series: [
       {
-        label: "Temperature",
+        name: "Temperature",
         data: response.map((city) => {
           return celsius ? city.main.temp : convertToFahrenheit(city.main.temp);
         }),
-        tension: 0.5,
       },
       {
-        label: "Humidity",
+        name: "Humidity",
         data: response.map((city) => {
           return city.main.humidity;
         }),
-        tension: 0.5,
       },
     ],
   };
@@ -52,29 +57,26 @@ const fetchDataForecast = async (
   return data;
 };
 
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top" as const,
-    },
-    title: {
-      display: true,
-      text: "Forecast 3 Days",
-    },
-  },
-};
-
 const ForecastChart: React.FC<ForecastChartProps> = ({
   cityInModal,
   ...props
 }) => {
   const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius);
-  const [chartData, setChartData] = useState<ChartData<"line">>({
-    labels: [],
-    datasets: [
+  const [chartData, setChartData] = useState<ApexOptions>({
+    chart: {
+      id: "temperature",
+    },
+    xaxis: {
+      categories: [],
+      labels: {
+        style: {
+          fontSize: "2px",
+        },
+      },
+    },
+    series: [
       {
-        label: "",
+        name: "",
         data: [],
       },
     ],
@@ -82,7 +84,8 @@ const ForecastChart: React.FC<ForecastChartProps> = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      setChartData(await fetchDataForecast(cityInModal, celsius));
+      const response = await fetchDataForecast(cityInModal, celsius);
+      setChartData(response);
     };
 
     fetchData();
@@ -94,7 +97,12 @@ const ForecastChart: React.FC<ForecastChartProps> = ({
 
   return (
     <div className={styles.forecastChart}>
-      <Line data={chartData} options={options}></Line>
+      <Chart
+        className={styles.chart}
+        options={chartData}
+        series={chartData.series}
+        type="line"
+      />
     </div>
   );
 };
