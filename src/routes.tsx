@@ -7,14 +7,7 @@ import {
 } from "react-router-dom";
 import Protected from "Protected";
 import Favorites from "pages/Favorites/Favorites";
-
-const checkIfAuthenticated = () => {
-  const localStorageAuthentication = localStorage.getItem("user");
-  if (!!localStorageAuthentication) {
-    const aaa = JSON.parse(localStorageAuthentication);
-    return aaa.loggedIn;
-  }
-};
+import { checkIfAuthenticated } from "utils";
 
 /*
 
@@ -52,12 +45,13 @@ export const router = createBrowserRouter(
           </Protected>
         }
       />
-      <Route path="/favorites"
-      element={
-        <Protected isLoggedIn={() => checkIfAuthenticated()}>
-          <Favorites />
-        </Protected>
-      }
+      <Route
+        path="/favorites"
+        element={
+          <Protected isLoggedIn={() => checkIfAuthenticated()}>
+            <Favorites />
+          </Protected>
+        }
       />
     </Route>
   )
