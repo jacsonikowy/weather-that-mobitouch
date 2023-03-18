@@ -1,31 +1,50 @@
-@import 'stylesheets/variables';
+@import "stylesheets/variables";
 
 .favorites {
-    background: #e4ebff;
+  background: #e4ebff;
+  display: flex;
+  min-height: 100svh;
+  .closeBtnWrapper {
+    position: absolute;
+    padding: 24px;
+  }
+  .content {
+    width: 100%;
+    font-size: 24px;
     display: flex;
-    height: 100svh;
-    .closeBtnWrapper {
-        position: absolute;
-        padding: 24px;
-    }
-    .content {
-        width: 100%;
-        .favoritePanels {
-            margin: 80px 0;
-            display: flex;
-            flex-direction: column;
-        }
-    }
-    .btnsWrapper {
-      right: 0;
-      z-index: 40;
-      position: fixed;
+    justify-content: center;
+    .favoritePanels {
+      margin: 80px 0;
       display: flex;
-      flex-direction: column;
-      margin: 20px;
-      align-items: start;
-      * {
-        margin: 5px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    span {
+      display: grid;
+      place-content: center;
+      height: 100svh;
+    }
+  }
+  .btnsWrapper {
+    right: 0;
+    z-index: 40;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    align-items: start;
+    * {
+      margin: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: $large) {
+  .favorites {
+    .content {
+      .favoritePanels {
+        margin: 80px 0;
       }
     }
+  }
 }
