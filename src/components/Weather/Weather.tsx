@@ -19,6 +19,7 @@ import {
   setCityInModal,
   setModalActive,
 } from "features/cityInModal/cityInModal";
+import { toast } from "react-toastify";
 
 const Weather: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherDataProps>();
@@ -28,6 +29,10 @@ const Weather: React.FC = () => {
   );
   const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius);
   const dispatch = useDispatch();
+
+  const notifyAddToFavorites = () => toast("Successfully added to Favorites!");
+  const notifyRemoveFromFavorites = () =>
+    toast("Successfully removed from Favorites!");
 
   useEffect(() => {
     if (city) {
@@ -43,7 +48,7 @@ const Weather: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const icon = weatherData.weather[0].icon
+  const icon = weatherData.weather[0].icon;
 
   return (
     <div className={styles.weather}>
@@ -58,22 +63,22 @@ const Weather: React.FC = () => {
               }
             />
           }
-          onClick={() =>
-            {
-              if(!checkIfFavorite(favoriteCities, weatherData)){
-                handleAddFavorites(weatherData, dispatch, favoriteCities)
-              } else {
-              handleRemoveFromFavorites(dispatch, weatherData, favoriteCities)
-              }
+          onClick={() => {
+            if (!checkIfFavorite(favoriteCities, weatherData)) {
+              handleAddFavorites(weatherData, dispatch, favoriteCities);
+              notifyAddToFavorites();
+            } else {
+              handleRemoveFromFavorites(dispatch, weatherData, favoriteCities);
+              notifyRemoveFromFavorites();
             }
-          }
+          }}
         />
       </div>
       <div className={styles.weatherDesc}>
-        <div className={styles.weatherIcon}>
-          {displayIcon(icon)}
-        </div>
-        <span className={styles.weatherInfo}>{weatherData.weather[0].description}</span>
+        <div className={styles.weatherIcon}>{displayIcon(icon)}</div>
+        <span className={styles.weatherInfo}>
+          {weatherData.weather[0].description}
+        </span>
       </div>
       <div className={styles.weatherMain}>
         <span>{`${
