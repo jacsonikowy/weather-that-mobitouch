@@ -10,10 +10,17 @@
     height: 50px;
     border-radius: 50%;
   }
+  &.seeMore {
+    background: white;
+    border-radius: 2px;
+    font-size: 24px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0.25);
+    padding: 6px 18px;
+  }
   &.active {
     background: black;
     color: white;
-  };
+  }
   svg {
     height: 26px;
     width: 26px;
