@@ -2,7 +2,10 @@ import axios from "axios";
 import { ForecastState } from "constants/Forecast";
 import { StateProps } from "constants/StateProps";
 import { WeatherDataProps } from "constants/WeatherDataProps";
-import { setFavoriteCity, setFavoriteCityArray } from "features/favoriteCities/favoriteCities";
+import {
+  setFavoriteCity,
+  setFavoriteCityArray,
+} from "features/favoriteCities/favoriteCities";
 import { icons } from "mocks/IconsData";
 import React from "react";
 
@@ -105,11 +108,11 @@ export const handleAddFavorites = (
       },
       coord: {
         lat: weatherData.coord!.lat,
-        lon: weatherData.coord!.lon
-      }
+        lon: weatherData.coord!.lon,
+      },
     };
 
-    console.log(favoriteCityData)
+    console.log(favoriteCityData);
     dispatch(setFavoriteCity(favoriteCityData));
     const data = localStorage.getItem("favoriteCities");
     let favoriteCitiesArray;
@@ -119,9 +122,11 @@ export const handleAddFavorites = (
 
     if (favoriteCitiesArray !== null) {
       favoriteCitiesArray.push(favoriteCityData);
-      console.log(favoriteCitiesArray)
-      favoriteCitiesArray.sort((a:WeatherDataProps,b:WeatherDataProps) => a.name.localeCompare(b.name))
-      console.log(favoriteCitiesArray)
+      console.log(favoriteCitiesArray);
+      favoriteCitiesArray.sort((a: WeatherDataProps, b: WeatherDataProps) =>
+        a.name.localeCompare(b.name)
+      );
+      console.log(favoriteCitiesArray);
     }
 
     localStorage.setItem("favoriteCities", JSON.stringify(favoriteCitiesArray));
@@ -146,9 +151,9 @@ export const checkIfFavorite = (
 };
 
 export const logout = (navigate: Function) => {
-  localStorage.removeItem("user")
-  navigate("/")
-}
+  localStorage.removeItem("user");
+  navigate("/");
+};
 
 export const returnCurrentDate = () => {
   const date = new Date();
@@ -165,8 +170,8 @@ export const returnCurrentDate = () => {
     "September",
     "October",
     "November",
-    "December"
-  ]
+    "December",
+  ];
 
   const daysOfWeek = [
     "Monday",
@@ -175,44 +180,48 @@ export const returnCurrentDate = () => {
     "Thursday",
     "Friday",
     "Saturday",
-    "Sunday"
-  ]
+    "Sunday",
+  ];
 
-  const month = months[date.getMonth()]
-  const year = date.getFullYear()
-  const dayOfWeek = daysOfWeek[date.getDay()]
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  const dayOfWeek = daysOfWeek[date.getDay()];
   const day = date.getDate();
 
   const dateToReturn = {
     title: `${month} ${year}`,
-    subtitle: `${dayOfWeek}, ${month.slice(0,3)} ${day} ${year}`
-  }
-  return dateToReturn
-}
+    subtitle: `${dayOfWeek}, ${month.slice(0, 3)} ${day} ${year}`,
+  };
+  return dateToReturn;
+};
 
 export const displayIcon = (icon: React.ReactNode): React.ReactNode => {
-  return icons.map(iconObject => {
-    if(Array.isArray(iconObject.id)){
-      return iconObject.id.map(iconId => {
-        if(iconId === icon){
-          return iconObject.icon
+  return icons.map((iconObject) => {
+    if (Array.isArray(iconObject.id)) {
+      return iconObject.id.map((iconId) => {
+        if (iconId === icon) {
+          return iconObject.icon;
         }
-      })
-    }else {
-      if(icon === iconObject.id){
-        return iconObject.icon
+      });
+    } else {
+      if (icon === iconObject.id) {
+        return iconObject.icon;
       }
     }
-  })
-}
+  });
+};
 
-export const handleRemoveFromFavorites = (dispatch: Function, favoriteCity: WeatherDataProps, state: WeatherDataProps[]) => {
+export const handleRemoveFromFavorites = (
+  dispatch: Function,
+  favoriteCity: WeatherDataProps,
+  state: WeatherDataProps[]
+) => {
   if (favoriteCity !== null) {
     const newFavoriteCityState = state.filter(
       (city: WeatherDataProps) => city.name !== favoriteCity.name
     );
-    console.log(newFavoriteCityState)
-    dispatch(setFavoriteCityArray(newFavoriteCityState))
+    console.log(newFavoriteCityState);
+    dispatch(setFavoriteCityArray(newFavoriteCityState));
 
     const favoriteCitiesFromLocalStorage =
       localStorage.getItem("favoriteCities");
@@ -224,5 +233,13 @@ export const handleRemoveFromFavorites = (dispatch: Function, favoriteCity: Weat
 
       localStorage.setItem("favoriteCities", JSON.stringify(result1));
     }
+  }
+};
+
+export const checkIfAuthenticated = () => {
+  const localStorageAuthentication = localStorage.getItem("user");
+  if (!!localStorageAuthentication) {
+    const aaa = JSON.parse(localStorageAuthentication);
+    return aaa.loggedIn;
   }
 };
