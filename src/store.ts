@@ -4,7 +4,8 @@ import CityReducer from "features/cities/weather";
 import FavoriteReducer from "features/favoriteCities/favoriteCities";
 import isCelsiusReducer from "features/isCelsius/isCelsius";
 import ModalCityReducer from "features/cityInModal/cityInModal";
-import SidebarReducer from 'features/sidebar/sidebar'
+import SidebarReducer from "features/sidebar/sidebar";
+import confirmationModalReducer from "features/confimationModal/confirmationModal";
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
     favorites: FavoriteReducer,
     isCelsius: isCelsiusReducer,
     cityInModal: ModalCityReducer,
-    sidebar: SidebarReducer
+    sidebar: SidebarReducer,
+    confirmationModalActive: confirmationModalReducer,
   },
 });
 
