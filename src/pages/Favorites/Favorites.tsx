@@ -19,6 +19,7 @@ import { ReactComponent as Celsius } from "assets/icons/celsius.svg";
 import { ReactComponent as Fahrenheit } from "assets/icons/fahrenheit.svg";
 import { setIsCelsius } from "features/isCelsius/isCelsius";
 import { ToastContainer } from "react-toastify";
+import ConfirmationModal from "components/ConfirmationModal/ConfirmationModal";
 
 const Favorites: React.FC = () => {
   const favorites = useSelector(
@@ -31,6 +32,9 @@ const Favorites: React.FC = () => {
     (state: RootState) => state.cityInModal.cityInModal
   );
   const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius);
+  const confirmationModalActive = useSelector(
+    (state: RootState) => state.confirmationModalActive.confirmationModalActive
+  );
 
   const dispatch = useDispatch();
 
@@ -84,6 +88,7 @@ const Favorites: React.FC = () => {
         )}
       </div>
       {modalActive && cityInModal && <Modal />}
+      {confirmationModalActive && <ConfirmationModal />}
     </div>
   );
 };

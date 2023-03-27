@@ -14,16 +14,19 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { setSidebarActive } from "features/sidebar/sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ConfirmationModal from "components/ConfirmationModal/ConfirmationModal";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
 
-  const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius);
   const cityInModal = useSelector(
     (state: RootState) => state.cityInModal.cityInModal
   );
   const modalActive = useSelector(
     (state: RootState) => state.cityInModal.activeModal
+  );
+  const confirmationModalActive = useSelector(
+    (state: RootState) => state.confirmationModalActive.confirmationModalActive
   );
 
   useEffect(() => {
@@ -59,6 +62,7 @@ const Home: React.FC = () => {
           <Weather />
         </div>
         {modalActive && cityInModal && <Modal />}
+        {confirmationModalActive && <ConfirmationModal />}
       </div>
       <ToastContainer />
     </div>
