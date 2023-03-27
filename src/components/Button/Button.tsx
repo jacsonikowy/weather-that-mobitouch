@@ -10,7 +10,7 @@ import { setIsCelsius } from "features/isCelsius/isCelsius";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string | React.ReactNode;
-  variant?: "secondary" | "third";
+  variant?: "secondary" | "third" | "confirmation" | "danger";
 }
 
 const Button: React.FC<ButtonProps> = ({ text, variant, ...props }) => {
@@ -36,7 +36,15 @@ const Button: React.FC<ButtonProps> = ({ text, variant, ...props }) => {
 
   return (
     <button
-      className={`${styles.button} ${variant ? styles.seeMore : ""}`}
+      className={`${styles.button} ${
+        variant === "third"
+          ? styles.third
+          : variant === "confirmation"
+          ? styles.confirmation
+          : variant === "danger"
+          ? styles.danger
+          : ""
+      }`}
       {...props}
     >
       {text}
