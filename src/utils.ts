@@ -8,6 +8,8 @@ import {
 } from "features/favoriteCities/favoriteCities";
 import { icons } from "mocks/IconsData";
 import React from "react";
+import { AppDispatch } from "store";
+import { setConfirmationModalActive } from "features/confimationModal/confirmationModal";
 
 export const convertToFahrenheit = (celsiusTemp: number) => {
   return Math.floor(celsiusTemp * 1.8 + 32);
@@ -81,7 +83,7 @@ export const convertUnixTime = (time: number) => {
 
 export const handleAddFavorites = (
   weatherData: WeatherDataProps,
-  dispatch: Function,
+  dispatch: AppDispatch,
   favoriteCitiesState: WeatherDataProps[]
 ) => {
   if (
@@ -212,7 +214,7 @@ export const displayIcon = (icon: React.ReactNode): React.ReactNode => {
 };
 
 export const handleRemoveFromFavorites = (
-  dispatch: Function,
+  dispatch: AppDispatch,
   favoriteCity: WeatherDataProps,
   state: WeatherDataProps[]
 ) => {
