@@ -36,6 +36,10 @@ const Weather: React.FC = () => {
     return <>Loading...</>;
   }
 
+  if (error) {
+    console.log(error);
+  }
+
   if (!weatherData) {
     return <div>Type city in input</div>;
   }
