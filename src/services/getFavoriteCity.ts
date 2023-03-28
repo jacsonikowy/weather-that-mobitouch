@@ -1,21 +1,15 @@
-import { WeatherDataProps } from "constants/WeatherDataProps";
+import { StateProps } from "constants/StateProps";
 import { weatherApi } from "./openweather";
-
-interface latAndLon {
-  lat: number;
-  lon: number;
-}
 
 export const forecastApi = weatherApi.injectEndpoints({
   endpoints: (builder) => ({
-    getWeatherForecast: builder.query<WeatherDataProps, latAndLon>({
-      query: ({ lat, lon }) =>
-        `weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API}`,
+    getFavoriteCity: builder.query<StateProps[], string>({
+      query: (city) =>
+        `/geo/1.0/direct?limit=${5}&q=${city}&appid=${
+          process.env.REACT_APP_API
+        }`,
     }),
   }),
 });
 
-/* export const useGetWeatherForecast =
-  forecastApi.endpoints.getWeatherForecast.useQuery; */
-
-export const { useGetWeatherForecastQuery } = forecastApi;
+export const { useGetFavoriteCityQuery } = forecastApi;

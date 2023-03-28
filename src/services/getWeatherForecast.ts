@@ -10,7 +10,7 @@ export const forecastApi = weatherApi.injectEndpoints({
   endpoints: (builder) => ({
     getWeatherForecast: builder.query<WeatherDataProps, latAndLon>({
       query: ({ lat, lon }) =>
-        `weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API}`,
+        `/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API}`,
     }),
   }),
 });
