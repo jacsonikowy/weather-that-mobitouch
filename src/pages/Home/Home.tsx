@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./Home.module.scss";
 import Weather from "components/Weather/Weather";
 import Button from "components/Button/Button";
-import { RootState } from "store";
+
 import Modal from "components/Modal/Modal";
 import { setFavoriteCityArray } from "features/favoriteCities/favoriteCities";
 import Sidebar from "components/Sidebar/Sidebar";
@@ -15,9 +15,18 @@ import { setSidebarActive } from "features/sidebar/sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmationModal from "components/ConfirmationModal/ConfirmationModal";
+import { useGetWeatherForecastQuery } from "services/getWeatherForecast";
+import { RootState } from "store";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
+
+  const { data, error, isLoading } = useGetWeatherForecastQuery({
+    lat: 0,
+    lon: 0,
+  });
+
+  console.log(data);
 
   const cityInModal = useSelector(
     (state: RootState) => state.cityInModal.cityInModal

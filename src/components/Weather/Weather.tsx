@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import styles from "./Weather.module.scss";
 import {
   checkIfFavorite,
@@ -14,15 +14,16 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Button from "components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
-import { WeatherDataProps } from "constants/WeatherDataProps";
 import {
   setCityInModal,
   setModalActive,
 } from "features/cityInModal/cityInModal";
 import { toast } from "react-toastify";
+import { useGetWeatherForecastQuery } from "services/getWeatherForecast";
+import { WeatherDataProps } from "constants/WeatherDataProps";
+
 
 const Weather: React.FC = () => {
-  const [weatherData, setWeatherData] = useState<WeatherDataProps>();
   const city = useSelector((state: RootState) => state.cityProps.cityProps);
   const favoriteCities = useSelector(
     (state: RootState) => state.favorites.favorites
@@ -34,15 +35,20 @@ const Weather: React.FC = () => {
   const notifyRemoveFromFavorites = () =>
     toast("Successfully removed from Favorites!");
 
-  useEffect(() => {
-    if (city) {
-      const fetchData = async () => {
-        const response = await fetchWeatherData(city.lat, city.lon);
-        setWeatherData(response);
-      };
-      fetchData();
-    }
-  }, [city]);
+  const { data, error, isLoading } = useGetWeatherForecastQuery({
+    lat: city.lat,
+    lon: city.lon,
+  });
+
+  const weatherData = data;
+
+  if (isLoading) {
+    return <>Loading...</>;
+  }
+
+  if (error) {
+    console.log(error);
+  }
 
   if (!weatherData) {
     return <div>Loading...</div>;
