@@ -245,3 +245,24 @@ export const checkIfAuthenticated = () => {
     return aaa.loggedIn;
   }
 };
+
+export const displayCurrentDayAndHour = () => {
+  const date = new Date();
+
+  const daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+
+  const dayOfWeek = daysOfWeek[date.getDay()];
+  const hour = date.getHours();
+  const minutes =
+    date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+
+  return `${dayOfWeek}, ${hour}:${minutes}`;
+};

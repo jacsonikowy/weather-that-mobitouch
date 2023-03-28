@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./FavoritePanel.module.scss";
 import { FavoriteState } from "constants/FavoriteState";
-import { convertToFahrenheit, displayIcon } from "utils";
+import {
+  convertToFahrenheit,
+  displayCurrentDayAndHour,
+  displayIcon,
+} from "utils";
 import Button from "components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { handleRemoveFromFavorites } from "utils";
 import { WeatherDataProps } from "constants/WeatherDataProps";
-import { toast } from "react-toastify";
+import { setConfirmationModalActive } from "features/confimationModal/confirmationModal";
+import { AppDispatch } from "store";
 
 interface FavoritePanelProps extends FavoriteState {
   onClick: () => void;
@@ -25,13 +29,8 @@ const FavoritePanel: React.FC<FavoritePanelProps> = ({
   onClick,
 }) => {
   const celsius = useSelector((state: RootState) => state.isCelsius.isCelsius);
-  const favoriteCities = useSelector(
-    (state: RootState) => state.favorites.favorites
-  );
 
   const dispatch = useDispatch();
-  const notifyRemoveFromFavorites = () =>
-    toast("Successfully removed from Favorites");
 
   return (
     <div className={styles.favoritePanel}>
@@ -39,13 +38,12 @@ const FavoritePanel: React.FC<FavoritePanelProps> = ({
         <Button
           text={<FontAwesomeIcon icon={faStar} />}
           onClick={() => {
-            handleRemoveFromFavorites(dispatch, weatherData, favoriteCities);
-            notifyRemoveFromFavorites();
+            dispatch(setConfirmationModalActive(true));
           }}
         />
       </div>
       <div className={styles.name}>{name}</div>
-      <div className={styles.date}>Monday, 12:00 AM</div>
+      <div className={styles.date}>{displayCurrentDayAndHour()}</div>
       <div className={styles.wrapperSvg}>
         {weatherImg ? displayIcon(weatherImg) : ""}
       </div>
