@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Weather.module.scss";
 import {
   checkIfFavorite,
@@ -20,8 +20,6 @@ import {
 } from "features/cityInModal/cityInModal";
 import { toast } from "react-toastify";
 import { useGetWeatherForecastQuery } from "services/getWeatherForecast";
-import { WeatherDataProps } from "constants/WeatherDataProps";
-
 
 const Weather: React.FC = () => {
   const city = useSelector((state: RootState) => state.cityProps.cityProps);
