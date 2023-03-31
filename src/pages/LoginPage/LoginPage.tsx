@@ -92,7 +92,15 @@ const LoginPage: React.FC = () => {
         <p className={styles.error}>
           {!credentialsCorrect ? <div>Wrong Credentials</div> : ""}
         </p>
-        <button className={styles.submitBtn}>Submit</button>
+        <p
+          className={styles.forgotBtn}
+          onClick={() => alert("login: admin, password: admin")}
+        >
+          Forgot password?
+        </p>
+        <button className={styles.submitBtn} type="submit">
+          Submit
+        </button>
       </form>
       <div className={styles.wrapper}>
         <h1>Weather.that</h1>
