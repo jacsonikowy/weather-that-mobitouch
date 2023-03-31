@@ -27,13 +27,13 @@
     .weatherInfo {
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
     .favorites {
       position: absolute;
       right: 0;
       margin: 48px;
     }
-
   }
 }
 
